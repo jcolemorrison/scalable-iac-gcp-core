@@ -8,7 +8,7 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_subnetwork" "subnet" {
   count                    = length(var.deployment_regions)
   name                     = format("subnet-%s-%d", var.deployment_regions[count.index], count.index + 1)
-  ip_cidr_range            = cidrsubnet("10.0.0.0/16", 8, count.index)
+  ip_cidr_range            = cidrsubnet(var.vpc_cidr_block, 8, count.index)
   network                  = google_compute_network.vpc_network.self_link
   region                   = var.deployment_regions[count.index]
   private_ip_google_access = true

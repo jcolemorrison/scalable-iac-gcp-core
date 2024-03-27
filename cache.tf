@@ -19,5 +19,5 @@ resource "google_compute_firewall" "redis_firewall" {
     ports    = ["6379"]
   }
 
-  source_ranges = ["10.0.0.0/16"]
+  source_ranges = [var.vpc_cidr_block] # TBD: restrict to VPC and all peers
 }
