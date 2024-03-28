@@ -6,7 +6,7 @@ data "google_compute_ssl_certificate" "server_cert" {
 resource "google_compute_instance_template" "server" {
   count        = length(var.deployment_regions)
   name_prefix  = "instance-template-${var.deployment_regions[count.index]}"
-  machine_type = var.instance_type
+  machine_type = var.server_instance_type
 
   disk {
     source_image = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts"
@@ -24,9 +24,9 @@ resource "google_compute_instance_template" "server" {
 
   metadata_startup_script = templatefile("${path.module}/scripts/server.sh", {
     REDIS_HOST  = google_redis_instance.cache[count.index].host
-    NODE_ENV    = var.environment_type
+    NODE_ENV    = var.server_environment_type
     PORT        = var.server_port
-    APP_VERSION = var.app_version
+    APP_VERSION = var.server_app_version
   })
 
   tags = ["server"]

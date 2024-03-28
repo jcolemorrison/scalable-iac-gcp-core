@@ -26,7 +26,7 @@ variable "vpc_cidr_block" {
   default     = "10.0.0.0/16"
 }
 
-variable "instance_type" {
+variable "server_instance_type" {
   description = "type of instance for game servers"
   type        = string
   default     = "c3-standard-4"
@@ -38,12 +38,12 @@ variable "server_port" {
   default     = 80
 }
 
-variable "environment_type" {
+variable "server_environment_type" {
   description = "The environment type (e.g., 'development', 'staging', 'production')"
   type        = string
 }
 
-variable "app_version" {
+variable "server_app_version" {
   description = "The version of the application to be deployed (e.g., '1.0.0' sans the 'v')"
   type        = string
 }
