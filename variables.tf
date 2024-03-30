@@ -17,7 +17,7 @@ variable "default_region" {
 variable "deployment_regions" {
   description = "regions to deploy"
   type        = list(string)
-  default     = ["us-central1", "us-west1", "us-east1"]
+  default     = ["us-west1", "us-east1"]
 }
 
 variable "vpc_cidr_block" {
