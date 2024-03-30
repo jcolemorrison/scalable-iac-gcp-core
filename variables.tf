@@ -29,7 +29,7 @@ variable "vpc_cidr_block" {
 variable "server_instance_type" {
   description = "type of instance for game servers"
   type        = string
-  default     = "c3-standard-4"
+  default     = "n2-standard-4"
 }
 
 variable "server_port" {
