@@ -4,7 +4,7 @@ output "vpc_self_link" {
 }
 
 output "server_loadbalancer_ip" {
-  description = "The IP address of the global load balancer"
+  description = "The IP address of the global load balancer. Used as SERVER_HOST in client."
   value       = google_compute_global_address.server.address
 }
 
@@ -22,4 +22,14 @@ output "redis_host_endpoints" {
     var.deployment_regions,
     google_redis_instance.cache.*.host
   )
+}
+
+output "client_url_map_name" {
+  description = "The name of the client URL map"
+  value       = google_compute_url_map.client.name
+}
+
+output "client_site_bucket_name" {
+  description = "The name of the client site bucket"
+  value       = google_storage_bucket.client_site_bucket.name
 }
