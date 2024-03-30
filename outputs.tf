@@ -34,6 +34,11 @@ output "client_site_bucket_name" {
   value       = google_storage_bucket.client_site_bucket.name
 }
 
+output "client_global_ip_address" {
+  description = "The IP address of the client global address"
+  value       = google_compute_global_address.client.address
+}
+
 output "server_service_account_email" {
   description = "The email of the server service account"
   value       = google_service_account.server.email
