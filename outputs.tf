@@ -12,7 +12,7 @@ output "redis_read_endpoints" {
   description = "Map of regions to game server Redis instance read endpoints"
   value = zipmap(
     var.deployment_regions,
-    [for instance in google_redis_instance.cache : instance.read_endpoint[0].ip_address]
+    [for instance in google_redis_instance.cache : instance.read_endpoint]
   )
 }
 
