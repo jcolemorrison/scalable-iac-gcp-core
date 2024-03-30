@@ -33,3 +33,8 @@ output "client_site_bucket_name" {
   description = "The name of the client site bucket"
   value       = google_storage_bucket.client_site_bucket.name
 }
+
+output "server_service_account_email" {
+  description = "The email of the server service account"
+  value       = google_service_account.server.email
+}

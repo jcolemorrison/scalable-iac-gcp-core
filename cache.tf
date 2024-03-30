@@ -22,6 +22,12 @@ resource "google_project_iam_member" "redis_reader" {
   member  = "serviceAccount:${var.redis_service_accounts[count.index]}"
 }
 
+resource "google_project_iam_member" "redis_admin" {
+  project = var.gcp_project_id
+  role    = "roles/redis.admin"
+  member  = "serviceAccount:${google_service_account.server.email}"
+}
+
 # Create a firewall rule that allows internal VPC traffic on port 6379
 resource "google_compute_firewall" "redis_firewall" {
   name    = "redis-firewall"

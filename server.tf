@@ -2,6 +2,18 @@ data "google_compute_ssl_certificate" "server_cert" {
   name = var.server_cert_name
 }
 
+# Create a service account for server instances
+resource "google_service_account" "server" {
+  account_id   = var.server_service_account_id
+  display_name = var.server_service_account_display_name
+}
+
+resource "google_project_iam_member" "server_logging" {
+  project = var.gcp_project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.server.email}"
+}
+
 # Instance template that defines the properties for each instance in the instance group
 resource "google_compute_instance_template" "server" {
   count        = length(var.deployment_regions)
@@ -28,6 +40,11 @@ resource "google_compute_instance_template" "server" {
     PORT        = var.server_port
     APP_VERSION = var.server_app_version
   })
+
+  service_account {
+    email = google_service_account.server.email
+    scopes = ["cloud-platform"]
+  }
 
   tags = ["server"]
 

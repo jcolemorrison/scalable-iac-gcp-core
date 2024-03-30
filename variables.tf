@@ -53,6 +53,18 @@ variable "server_cert_name" {
   type        = string
 }
 
+variable "server_service_account_id" {
+  description = "value of the server service account id.  It is unique within a project, must be 6-30 characters long, and match the regular expression [a-z]([-a-z0-9]*[a-z0-9]) to comply with RFC1035."
+  type        = string
+  default     = "scalable-iac-core-server"
+}
+
+variable "server_service_account_display_name" {
+  description = "value of the server service account display name."
+  type        = string
+  default     = "Scalable IaC Core Server"
+}
+
 variable "redis_service_accounts" {
   description = "List of service account emails that need read access to the Redis instances"
   type        = list(string)
