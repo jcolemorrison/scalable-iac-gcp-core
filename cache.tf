@@ -18,6 +18,13 @@ resource "google_redis_instance" "cache" {
   reserved_ip_range  = format("10.0.%d.%d/29", 254 + count.index / 32, (count.index % 32) * 8)  
 }
 
+resource "google_project_iam_member" "redis_reader" {
+  count   = length(var.redis_service_accounts) == 0 ? 0 : length(var.redis_service_accounts)
+  project = var.gcp_project_id
+  role    = "roles/redis.viewer"
+  member  = "serviceAccount:${var.redis_service_accounts[count.index]}"
+}
+
 # Create a firewall rule that allows internal VPC traffic on port 6379
 resource "google_compute_firewall" "redis_firewall" {
   name    = "redis-firewall"

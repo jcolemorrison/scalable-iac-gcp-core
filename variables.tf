@@ -53,6 +53,12 @@ variable "server_cert_name" {
   type        = string
 }
 
+variable "redis_service_accounts" {
+  description = "List of service account emails that need read access to the Redis instances"
+  type        = list(string)
+  default     = []
+}
+
 variable "client_site_service_account_email" {
   description = "The email of the service account"
   type        = string
