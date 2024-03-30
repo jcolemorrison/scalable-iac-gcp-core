@@ -15,7 +15,7 @@ resource "google_redis_instance" "cache" {
   # reserved_ip_range  = format("10.0.255.%d/29", count.index * 8)
 
   # Use a /29 block within the 10.0.254.0/23 space, max of 64 instances
-  reserved_ip_range  = format("10.0.%d.%d/29", 254 + count.index / 32, (count.index % 32) * 8)  
+  reserved_ip_range  = format("10.0.%d.%d/29", 254 + floor(count.index / 32), (count.index % 32) * 8)  
 }
 
 resource "google_project_iam_member" "redis_reader" {
