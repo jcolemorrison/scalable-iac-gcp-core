@@ -6,6 +6,7 @@ variable "gcp_project_id" {
 variable "project_name" {
   description = "default project name for grouping resources"
   type        = string
+  default     = "scaling-iac-core"
 }
 
 variable "default_region" {
@@ -79,4 +80,10 @@ variable "client_site_service_account_email" {
 variable "client_cert_name" {
   description = "value of the client certificate name"
   type        = string
+}
+
+variable "services_vpc_self_link" {
+  description = "The self-link of the Services VPC network"
+  type        = string
+  default     = ""
 }

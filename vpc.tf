@@ -36,3 +36,11 @@ resource "google_compute_router_nat" "cloud_nat" {
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
   }
 }
+
+# Peering from this network to Service Project's VPC
+resource "google_compute_network_peering" "peer_to_services" {
+  count        = var.services_vpc_self_link != "" ? 1 : 0
+  name         = "peering-to-services"
+  network      = google_compute_network.vpc_network.self_link
+  peer_network = var.services_vpc_self_link
+}
