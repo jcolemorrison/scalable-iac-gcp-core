@@ -1,3 +1,19 @@
+# Create a global address for VPC peering
+resource "google_compute_global_address" "service_range" {
+  name          = "address"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  network       = google_compute_network.vpc_network.self_link
+}
+
+# Create a private service connection
+resource "google_service_networking_connection" "private_service_connection" {
+  network                 = google_compute_network.vpc_network.self_link
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.service_range.name]
+}
+
 # Create a Redis instance in each region
 resource "google_redis_instance" "cache" {
   count              = length(var.deployment_regions)
@@ -10,9 +26,12 @@ resource "google_redis_instance" "cache" {
   tier               = "STANDARD_HA"  # Use the Standard HA Tier
   replica_count      = 1
   read_replicas_mode = "READ_REPLICAS_ENABLED"
+  connect_mode       = "PRIVATE_SERVICE_ACCESS"
 
   # Use a /28 block within the 10.0.255.0/24 space, max of 16 instances
   reserved_ip_range  = format("10.0.255.%d/28", (count.index % 16) * 16)
+
+  depends_on = [google_service_networking_connection.private_service_connection]
 }
 
 resource "google_project_iam_member" "redis_reader" {
