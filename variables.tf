@@ -27,6 +27,12 @@ variable "vpc_cidr_block" {
   default     = "10.0.0.0/16"
 }
 
+variable "cache_access_cidr_blocks" {
+  description = "CIDR blocks allowed read access to the Redis instances"
+  type        = list(string)
+  default     = ["10.0.0.0/16", "10.1.0.0/16"]
+}
+
 variable "server_instance_type" {
   description = "type of instance for game servers"
   type        = string
