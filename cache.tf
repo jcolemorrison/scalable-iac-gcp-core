@@ -113,6 +113,7 @@ resource "google_compute_firewall" "redis_proxy_firewall" {
   target_tags   = ["proxy"]
 }
 
+# For debugging
 resource "google_compute_firewall" "ssh_proxy_debug" {
   name    = "allow-ssh"
   network = google_compute_network.vpc_network.self_link

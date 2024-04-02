@@ -81,7 +81,7 @@ variable "proxy_instance_type" {
 variable "allowed_proxy_cidr_blocks" {
   description = "The CIDR blocks that are allowed to connect to the Redis proxy servers"
   type        = list(string)
-  default     = ["0.0.0.0/0", "10.0.0.0/16", "10.1.0.0/16"]
+  default     = ["10.0.0.0/16", "10.1.0.0/16"]
 }
 
 variable "client_site_service_account_email" {
