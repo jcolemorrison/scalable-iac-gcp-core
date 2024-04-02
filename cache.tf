@@ -74,6 +74,7 @@ resource "google_compute_instance_template" "redis_proxy" {
 
   metadata = {
     project_name = var.project_name
+    serial-port-enable = "1"
   }
 
   metadata_startup_script = templatefile("${path.module}/scripts/proxy.sh", {
