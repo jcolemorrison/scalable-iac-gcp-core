@@ -111,3 +111,16 @@ resource "google_compute_firewall" "redis_proxy_firewall" {
   source_ranges = var.allowed_proxy_cidr_blocks
   target_tags   = ["proxy"]
 }
+
+resource "google_compute_firewall" "ssh_proxy_debug" {
+  name    = "allow-ssh"
+  network = google_compute_network.vpc_network.self_link
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["35.235.240.0/20"]
+  target_tags   = ["proxy"]
+}
