@@ -2,6 +2,7 @@
 apt-get update
 apt-get install -y nutcracker
 mkdir -p /etc/nutcracker
+mkdir -p /run/nutcracker
 echo 'alpha:
   listen: 0.0.0.0:6379
   redis: true
