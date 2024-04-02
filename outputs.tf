@@ -26,12 +26,12 @@ output "redis_host_endpoints" {
 
 output "redis_proxy_public_ips" {
   description = "Map of deployment regions to Redis proxy public IP addresses"
-  value = zipmap(var.deployment_regions, google_compute_instance_from_template.redis_proxy.*.network_interface[0].access_config[0].nat_ip)
+  value = zipmap(var.deployment_regions, [for instance in google_compute_instance_from_template.redis_proxy : instance.network_interface[0].access_config[0].nat_ip])
 }
 
 output "redis_proxy_private_ips" {
   description = "Map of deployment regions to Redis proxy private IP addresses"
-  value = zipmap(var.deployment_regions, google_compute_instance_from_template.redis_proxy.*.network_interface[0].network_ip)
+  value = zipmap(var.deployment_regions, [for instance in google_compute_instance_from_template.redis_proxy : instance.network_interface[0].network_ip])
 }
 
 output "client_url_map_name" {
