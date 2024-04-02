@@ -72,6 +72,12 @@ variable "redis_service_accounts" {
   default     = []
 }
 
+variable "allowed_proxy_cidr_blocks" {
+  description = "The CIDR blocks that are allowed to connect to the Redis proxy servers"
+  type        = list(string)
+  default     = ["0.0.0.0/0", "10.1.0.0/16"]
+}
+
 variable "client_site_service_account_email" {
   description = "The email of the service account"
   type        = string

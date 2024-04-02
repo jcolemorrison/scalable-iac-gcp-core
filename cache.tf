@@ -85,7 +85,7 @@ resource "google_compute_instance_template" "redis_proxy" {
     scopes = ["cloud-platform"]
   }
 
-  tags = ["server"]
+  tags = ["proxy"]
 
   lifecycle {
     create_before_destroy = true
@@ -97,4 +97,17 @@ resource "google_compute_instance_from_template" "redis_proxy" {
   name  = format("proxy-%s", var.deployment_regions[count.index])
   zone  = element(data.google_compute_zones.available[count.index].names, 0)
   source_instance_template = google_compute_instance_template.redis_proxy[count.index].self_link
+}
+
+resource "google_compute_firewall" "redis_proxy_firewall" {
+  name    = "redis-proxy-firewall"
+  network = google_compute_network.vpc_network.self_link
+
+  allow {
+    protocol = "tcp"
+    ports    = ["6379"]
+  }
+
+  source_ranges = var.allowed_proxy_cidr_blocks
+  target_tags   = ["proxy"]
 }
