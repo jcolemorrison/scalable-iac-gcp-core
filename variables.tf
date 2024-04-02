@@ -72,6 +72,12 @@ variable "redis_service_accounts" {
   default     = []
 }
 
+variable "proxy_instance_type" {
+  description = "type of instance for proxy servers"
+  type        = string
+  default     = "n1-standard-2"
+}
+
 variable "allowed_proxy_cidr_blocks" {
   description = "The CIDR blocks that are allowed to connect to the Redis proxy servers"
   type        = list(string)

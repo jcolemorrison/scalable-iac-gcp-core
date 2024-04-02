@@ -57,7 +57,7 @@ resource "google_project_iam_member" "redis_proxy_reader" {
 resource "google_compute_instance_template" "redis_proxy" {
   count        = length(var.deployment_regions)
   name_prefix  = "proxy-${var.deployment_regions[count.index]}"
-  machine_type = var.server_instance_type
+  machine_type = var.proxy_instance_type
 
   disk {
     source_image = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts"
