@@ -1,12 +1,6 @@
 #!/bin/bash
 apt-get update
-apt-get install -y build-essential autoconf automake libtool git
-git clone https://github.com/twitter/twemproxy.git
-cd twemproxy
-autoreconf -fvi
-./configure --enable-debug=log
-make
-make install
+apt-get install -y nutcracker
 mkdir -p /etc/nutcracker
 echo 'alpha:
   listen: 0.0.0.0:6379
